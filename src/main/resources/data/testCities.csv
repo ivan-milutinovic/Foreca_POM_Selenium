@@ -1,0 +1,4 @@
+city_name,country_code,expected_title_part,expected_url_part,min_temp_range,max_temp_range
+Belgrade,RS,"Belgrade, RS - Foreca.com",Belgrade-Serbia,-10,40
+Novi Sad,RS,"Novi Sad, RS - Foreca.com",Novi-Sad-Serbia,-12,38
+London,GB,"London, GB - Foreca.com",London-United-Kingdom,-5,30

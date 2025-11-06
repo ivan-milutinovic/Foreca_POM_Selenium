@@ -1,0 +1,48 @@
+# Naziv radnog toka (prikazuje se u GitHub Actions)
+name: Daily Foreca Regression Tests
+
+# --------------------------
+# KORAK 1: DEFINICIJA SCHEDULERA (CRON)
+# --------------------------
+on:
+  # Definise pokretanje radnog toka po rasporedu (scheduler)
+  # Cron format: min sat dan_u_mesecu mesec dan_u_nedelji
+  # "0 6 * * *" znaci: u 00 minuta, 6. sata, svakog dana, svakog meseca, svakog dana u nedelji.
+  # VAŽNO: Vremenska zona je UTC. Ako je potrebno podesiti lokalno vreme,
+  # moracete da konvertujete u UTC. Npr. za CET (Srbija), 6:00 AM je 5:00 AM UTC.
+  schedule:
+    # Ovde je podešeno na 06:00 AM UTC
+    - cron: '0 6 * * *'
+
+  # Omogućava ručno pokretanje radnog toka putem dugmeta u GitHub interfejsu
+  workflow_dispatch:
+
+# --------------------------
+# KORAK 2: DEFINICIJA POSLOVA (JOBS)
+# --------------------------
+jobs:
+  run-tests:
+    # Odredjuje operativni sistem (koristimo Ubuntu za stabilnost)
+    runs-on: ubuntu-latest
+
+    steps:
+      # Korak 1: Preuzimanje koda
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Korak 2: Podešavanje Java okruženja (potrebno za Maven)
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17' # Možete zameniti sa verzijom koju koristite
+          distribution: 'temurin'
+          cache: maven
+
+      # Korak 3: POKRETANJE TESTOVA
+      # Koristi se 'mvn clean test' komanda, koja pokrece sve JUnit testove
+      - name: Run Maven Tests
+        run: mvn clean test
+
+      # Opciono: Dodavanje izveštaja (npr. Surefire Report) ako je potrebno
+      # - name: Publish Test Results
+      #   uses: ...
