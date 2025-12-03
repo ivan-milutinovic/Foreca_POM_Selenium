@@ -1,5 +1,3 @@
-Markdown
-
 # Foreca_POM_Selenium
 
 [![Selenium WebDriver](https://img.shields.io/badge/Selenium-WebDriver-43B02A?logo=selenium&style=for-the-badge)](https://www.selenium.dev/)
